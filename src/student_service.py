@@ -10,10 +10,25 @@ class StudentService:
         self._students: list[Student] = []
 
     def print_list(self) -> None:
-        pass
+        if not self._students:
+            print("No students found.")
+            return
+
+        print("Students:")
+        for student in self._students:
+            print(f"- {student.student_id}: {student.name}")
 
     def add_student(self, student_id: str, name: str) -> bool:
-        pass
+        for student in self._students:
+            if student.student_id == student_id:
+                return False
+
+        self._students.append(Student(student_id=student_id, name=name))
+        return True
 
     def remove_student(self, student_id: str) -> bool:
-        pass
+        for student in self._students:
+            if student.student_id == student_id:
+                self._students.remove(student)
+                return True
+        return False
