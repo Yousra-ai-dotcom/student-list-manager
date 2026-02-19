@@ -32,3 +32,12 @@ class StudentService:
                 self._students.remove(student)
                 return True
         return False
+    
+    def export_students_json(self, file_path: str) -> None:
+        import json
+        data = []
+        for student in self._students:
+            data.append({"id": student.student_id, "name": student.name})
+
+        with open(file_path, "w", encoding="utf-8") as file:
+            json.dump(data, file, indent=2)

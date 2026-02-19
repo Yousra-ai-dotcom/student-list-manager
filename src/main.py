@@ -73,12 +73,20 @@ def main() -> None:
 
         elif command == "export":
             if len(parts) != 3:
-                print("Usage: export csv <file_path>")
+                print("Usage: export <format> <file_path>")
                 continue
 
+            export_format: str = parts[1].lower()
             file_path: str = parts[2]
-            service.export_students_csv(file_path)
-            print(f"Students exported to CSV file '{file_path}'.")
+
+            if export_format == "csv":
+                service.export_students_csv(file_path)
+                print(f"Students exported to CSV file '{file_path}'.")
+            elif export_format == "json":
+                service.export_students_json(file_path)
+                print(f"Students exported to JSON file '{file_path}'.")
+            else:
+                print("Unsupported format. Use 'csv' or 'json'.")
 
         elif command in {"quit", "exit"}:
             print("Bye.")
